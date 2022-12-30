@@ -60,9 +60,9 @@ const GoalMainScreen = () => {
         key={goal.id}
         style={[
           Style_GoalMainScreen.listItemContainerStyle,
-          {backgroundColor: flatScroll === 'scroll' ? '#323232' : '#006373'},
+          {backgroundColor: flatScroll === 'scroll' ? '#323232' : '#02505d'},
         ]}>
-        <Text key={goal.id} style={{color: '#00ca87'}}>
+        <Text key={goal.id} style={{color: '#00ca87', fontSize: 16}}>
           {goal.goal_name}
         </Text>
       </TouchableOpacity>
@@ -84,7 +84,7 @@ const GoalMainScreen = () => {
             color: '#00ca87',
             paddingVertical: 10,
           }}>
-          My Goals List
+          2023 Goals List
         </Text>
       </View>
 
@@ -141,7 +141,7 @@ const GoalMainScreen = () => {
           style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end'}}>
           <ButtonView
             text="Flatlist"
-            colored={'#006373'}
+            colored={'#02505d'}
             clickFunction={() => {
               setFlatScroll('flat');
             }}
@@ -154,7 +154,24 @@ const GoalMainScreen = () => {
         </View>
       </View>
       <View style={{flex: 1}}>
-        {flatScroll === 'scroll' ? (
+        {goalList.length === 0 ? (
+          <View
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+              alignItems: 'center',
+              paddingHorizontal: 20,
+            }}>
+            <Text
+              style={{
+                fontSize: 20,
+                color: '#00ca87',
+                textAlign: 'center',
+              }}>
+              You did not set any goal for 2023, chutiya hai kia?
+            </Text>
+          </View>
+        ) : flatScroll === 'scroll' ? (
           <ScrollView alwaysBounceVertical={false}>
             <View style={{paddingHorizontal: 20, paddingVertical: 10}}>
               {goalList.map(goal => (
@@ -205,7 +222,9 @@ const Style_GoalMainScreen = StyleSheet.create({
 
   inputTextStyle: {
     padding: 10,
-    fontSize: 16,
+    fontSize: 18,
+    color: 'black',
+    fontWeight: 'bold',
     borderRadius: 10,
     backgroundColor: 'white',
     borderColor: '#323232',
