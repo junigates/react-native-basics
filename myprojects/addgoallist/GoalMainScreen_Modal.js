@@ -11,9 +11,11 @@ import {
 } from 'react-native';
 import ButtonView from './ButtonView';
 import GoalItem from './GoalItem';
+import MyCustomFloatButton from './MyCustomFloatButton';
 import UserInput from './UserInput';
+import UserInput_Modal from './UserInput_Modal';
 
-export default GoalMainScreen = () => {
+export default GoalMainScreen_Modal = () => {
   const [enteredGoal, setEnteredGoal] = useState('');
   const [goalList, setGoalList] = useState([]);
   const [flatScroll, setFlatScroll] = useState('scroll');
@@ -35,6 +37,7 @@ export default GoalMainScreen = () => {
 
   function addGoal() {
     setGoalList(currentList => [...currentList, newObject(enteredGoal)]);
+    setModalIsVisible(false);
     setEnteredGoal('');
   }
 
@@ -45,6 +48,12 @@ export default GoalMainScreen = () => {
 
   function clearText() {
     setEnteredGoal('');
+  }
+
+  const [modalIsVisible, setModalIsVisible] = useState(false);
+
+  function startAddGoalHandler(visible) {
+    setModalIsVisible(visible);
   }
 
   return (
@@ -62,17 +71,17 @@ export default GoalMainScreen = () => {
             color: '#00ca87',
             paddingVertical: 10,
           }}>
-          2023 Goals List
+          2023 Goals List - Modal
         </Text>
       </View>
-
-      <UserInput
+      <UserInput_Modal
+        visible={modalIsVisible}
         enteredGoalHandler={enteredGoalHandler}
         enteredGoal={enteredGoal}
         clearText={clearText}
+        startAddGoalHandler={startAddGoalHandler}
         addGoal={addGoal}
       />
-
       <View
         style={{
           borderTopWidth: 1,
@@ -104,7 +113,7 @@ export default GoalMainScreen = () => {
           />
           <View style={{marginHorizontal: '2%'}}></View>
           <ButtonView
-            colored={'#3a4602'}
+            colored={'#262c2d'}
             text="Clear List"
             clickFunction={clearList}
           />
@@ -156,6 +165,22 @@ export default GoalMainScreen = () => {
           </View>
         )}
       </View>
+
+      <MyCustomFloatButton
+        clickFunction={() => {
+          startAddGoalHandler(true);
+        }}
+      />
+
+      {/* <View style={{marginBottom: 10, marginHorizontal: 10}}>
+        <ButtonView
+          colored={'#121212'}
+          text="Add A New Goal"
+          clickFunction={() => {
+            startAddGoalHandler(true);
+          }}
+        />
+      </View> */}
     </View>
   );
 };
